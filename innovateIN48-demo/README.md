@@ -1,6 +1,6 @@
 # InnovateIN48-Demo
 
-This serves as the placeholder for the ongoing development of project for FIS InnovateIN48.
+This serves as the placeholder for the ongoing development of project (client-side) for FIS InnovateIN48.
 
 Developer:
-BPAPS Hackathon Team
+Jim Lorica | loricajemar@gmail.com | August 2021
