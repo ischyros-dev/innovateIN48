@@ -25,6 +25,7 @@
     "@ruf/fis-ux-assets": "^4.18.0",
     "@ruf/material": "^11.6.0",
     "@ruf/prebuilt-themes": "^5.5.0-beta2",
+    "@ruf/schematics": "^5.4.0",
     "@ruf/shell": "^5.5.0-beta2",
     "@ruf/theming": "^5.5.0-beta2",
     "rxjs": "~6.6.0",
