@@ -16,10 +16,12 @@ import {
 } from '@ruf/shell';
 
 import { DemoAppComponent } from './demo-app.component';
+import { NavBarComponent } from './nav/nav-bar.component';
 
 @NgModule({
   declarations: [
-    DemoAppComponent
+    DemoAppComponent,
+    NavBarComponent
   ],
   imports: [
     BrowserModule,
