@@ -1,0 +1,86 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "description": "innovateIN48",
+    "version": "1.0.0",
+    "title": "Bank Transaction API",
+  },
+  "tags": {
+    "name": "Service API",
+    "description": "Bank transaction services."
+  },
+  "servers": [
+    {
+      "url": "http://localhost:5000"
+    }
+  ],
+  "paths": {
+    "/login": {
+      "post": {
+        "tags": [
+          "Service API"
+        ],
+        "summary": "Establish session for required transaction",
+        "parameters": [
+          {
+            "name": "userid",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "password",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "token": "string",
+                    "format": "byte"
+                  }
+                },
+                "example": {
+                  "token": "api_key"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Invalid credentials!."
+          }
+        }
+      }
+    },
+    "/logout": {
+      "post": {
+        "tags": [
+          "Service API"
+        ],
+        "summary": "Terminates established session",
+        "parameters": [
+          {
+            "name": "userid",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized!"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,7 @@
+{
+    "secret_key": "secretkey",
+    "db": "innovateIN48",
+    "db_host": "localhost",
+    "db_user": "testuser",
+    "db_password": "testpassword"
+}
