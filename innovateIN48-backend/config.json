@@ -1,7 +1,0 @@
-{
-    "secret_key": "secretkey",
-    "db": "testdb",
-    "db_host": "localhost",
-    "db_user": "username",
-    "db_password": "password"
-}

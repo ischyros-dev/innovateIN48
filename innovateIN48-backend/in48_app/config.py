@@ -2,7 +2,7 @@ import json
 import os
 
 currdir = os.getcwd()
-with open(currdir + '/config.json') as config_file:
+with open(currdir + '/in48_app/static/config.json') as config_file:
     config = json.load(config_file)
 
 
