@@ -2,3 +2,7 @@
 @import '~@ruf/prebuilt-themes/fis-default.scss';
 // Importing the RUF shell structural styles
 @import '~@ruf/shell/styles/index';
+
+@import 'node_modules/@ruf/theme-roller/styles/all-theme';
+ 
+@include ruf-theme-roller-theme($theme, $typography-config);

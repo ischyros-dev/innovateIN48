@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatIconModule } from '@angular/material/icon';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { HttpClientModule } from '@angular/common/http';
 
 import {
   RufAppCanvasModule,
@@ -15,8 +16,12 @@ import {
   RufPageHeaderModule
 } from '@ruf/shell';
 
+import { RufThemeRollerModule } from '@ruf/theme-roller';
+
 import { DemoAppComponent } from './demo-app.component';
 import { NavBarComponent } from './nav/nav-bar.component';
+import { AuthService } from './user/auth.service';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
@@ -25,6 +30,7 @@ import { NavBarComponent } from './nav/nav-bar.component';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     BrowserAnimationsModule,
     MatIconModule,
     FlexLayoutModule,
@@ -35,9 +41,13 @@ import { NavBarComponent } from './nav/nav-bar.component';
     RufIconModule,
     RufMenubarModule,
     RufNavbarModule,
-    RufPageHeaderModule
+    RufPageHeaderModule,
+    RufThemeRollerModule,
+    AppRoutingModule
   ],
-  providers: [],
+  providers: [
+    AuthService
+  ],
   bootstrap: [DemoAppComponent]
 })
 export class AppModule { }
