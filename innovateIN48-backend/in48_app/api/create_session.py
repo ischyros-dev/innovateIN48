@@ -9,8 +9,8 @@ auth_session = Blueprint('auth_session', __name__)
 
 @auth_session.route('/login', methods=['POST'])
 def login():
-    username = request.args.get('userid')
-    password = request.args.get('password')
+    username = request.json['userid']
+    password = request.json['password']
 
     if username and password:
         if username in session:

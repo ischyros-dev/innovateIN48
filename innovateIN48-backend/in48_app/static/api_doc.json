@@ -3,7 +3,7 @@
   "info": {
     "description": "innovateIN48",
     "version": "1.0.0",
-    "title": "Bank Transaction API",
+    "title": "Bank Transaction API"
   },
   "tags": {
     "name": "Service API",
@@ -21,23 +21,27 @@
           "Service API"
         ],
         "summary": "Establish session for required transaction",
-        "parameters": [
-          {
-            "name": "userid",
-            "in": "query",
-            "required": true,
-            "type": "string"
+        "requestBody": {
+          "description": "User credentials for the required session",
+          "content": {
+            "application/json": {
+              "schema": {
+                "userid": {
+                  "type": "string",
+                  "format": "string"
+                },
+                "password": {
+                  "type": "string",
+                  "format": "password"
+                }
+              }
+            }
           },
-          {
-            "name": "password",
-            "in": "query",
-            "required": true,
-            "type": "string"
-          }
-        ],
+          "required": true
+        },
         "responses": {
           "200": {
-            "description": "OK",
+            "description": "Valid credentials. Use authentication key to execute transactions.",
             "content": {
               "application/json": {
                 "schema": {
@@ -53,7 +57,7 @@
             }
           },
           "403": {
-            "description": "Invalid credentials!."
+            "description": "Invalid credentials. No transactions allowed."
           }
         }
       }
@@ -74,10 +78,10 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Session terminated."
           },
           "401": {
-            "description": "Unauthorized!"
+            "description": "Non-existing session."
           }
         }
       }
