@@ -28,7 +28,7 @@ export class UserLoginComponent implements OnInit {
         .subscribe(resp => {
             if(!resp) {
                 this.loginInvalid = true
-                console.log('Invalid login credentials.')
+                console.log('Login Failed.')
             }
             else {
                 console.log('Login successful.')                

@@ -12,7 +12,7 @@ export class AuthService {
 
     currentUser: AppUser
     loginUser(userName: string, password: string) {
-        let loginInfo = { username: userName, password: password }
+        let loginInfo = { userid: userName, password: password }
         let options = { headers: new HttpHeaders({ 'Content-Type': 'application/json' })}
 
         return this.http.post(`${API_URL}/login`, loginInfo, options)

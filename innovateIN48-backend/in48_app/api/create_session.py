@@ -1,4 +1,5 @@
 from flask import Blueprint, request, jsonify, session
+from flask_cors.decorator import cross_origin
 from in48_app import mydb, in48_app
 import jwt
 import datetime
@@ -8,6 +9,7 @@ auth_session = Blueprint('auth_session', __name__)
 
 
 @auth_session.route('/login', methods=['POST'])
+@cross_origin()
 def login():
     username = request.json['userid']
     password = request.json['password']
