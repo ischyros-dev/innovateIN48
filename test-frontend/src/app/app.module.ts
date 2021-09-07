@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { AuthService } from './user/auth.service';
 import { UserLoginComponent } from './user/login.component';
 import { appRoutes } from './routes';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { appRoutes } from './routes';
     HttpClientModule,
     RouterModule.forRoot(appRoutes),
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgbModule
   ],
 
   providers: [

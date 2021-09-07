@@ -13,6 +13,7 @@ import { AuthService } from "./auth.service";
 export class UserLoginComponent implements OnInit {
     userName
     password
+    mouseoverLogin
     loginInvalid = false
 
     constructor(
@@ -28,7 +29,7 @@ export class UserLoginComponent implements OnInit {
         .subscribe(resp => {
             if(!resp) {
                 this.loginInvalid = true
-                console.log('Login Failed.')
+                console.log('Login failed.')
             }
             else {
                 console.log('Login successful.')                

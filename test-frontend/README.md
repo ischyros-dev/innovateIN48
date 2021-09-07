@@ -1,15 +1,36 @@
-# TestFrontend
+# Test-Frontend for InnovateIN48
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.4.
+This serves as the temporary client-side app for testing the [Bank Transaction APIs](https://github.com/ischyros-dev/innovateIN48/tree/master/innovateIN48-backend)
 
-## Development server
+## Requirements
+- Node.js - [Setup and installation](https://nodejs.dev/learn/how-to-install-nodejs)
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Download Node.js LTS version [here](https://nodejs.dev/download/)
 
-## Build
+- Angular CLI - [Setup and installation](https://angular.io/guide/setup-local)
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+To install the angular cli globally, issue the following command in your terminal/ command prompt:
+```
+npm install -g @angular/cli
+```
 
-## Further help
+## Setup
+1. In your terminal/ command prompt, change directory to the root of test-frontend such as the one shown below.
+```
+C:\Users\e5649916> cd Documents\test-projects\innovateIN48-demo-client-side\test-frontend
+```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+2. Install the dependencies by issuing the command below. When done, you should be able to see the newly created "node_modules" folder inside the test-frontend directory.
+```
+npm install
+```
+
+3. (Optional) Build the application to check if everything is working fine. If so, there should be no error encountered.
+```
+ng build
+```
+
+4. Run the application. The browser will be automatically opened and you will be directed to http://localhost:4202/. Note: Remember to run first the back-end server.
+```
+npm start
+```
