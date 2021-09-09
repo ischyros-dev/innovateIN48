@@ -15,6 +15,9 @@ INSERT INTO `Customer File` VALUES(1, '1234567890', 'abc123', 'Testlname1', 'Yel
 INSERT INTO `Customer File` VALUES(2, '1000000001', '123abc', 'Testlname2', 'Blue');
 INSERT INTO `Customer File` VALUES(3, '1000000002', 'testpassword', 'Testlname3', 'Green');
 
+-- added for easy testing when implementing the STT/ TSS feature
+insert into `customer file` values(4, 'john', 'password1', 'John', 'Smith');
+
 CREATE TABLE `Accounts Master File`(
     AccountsMasterFile_ID INT NOT NULL AUTO_INCREMENT,
     CustomerNumber VARCHAR(10) NOT NULL,
