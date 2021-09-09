@@ -3,17 +3,20 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
 import { AuthService } from './user/auth.service';
 import { UserLoginComponent } from './user/login.component';
 import { appRoutes } from './routes';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { SenseService } from './shared/sense.service';
+import { HomePageComponent } from './home/home-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    UserLoginComponent
+    UserLoginComponent,
+    HomePageComponent
   ],
 
   imports: [
@@ -26,7 +29,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
   ],
 
   providers: [
-    AuthService
+    AuthService,
+    SenseService
   ],
 
   bootstrap: [AppComponent]
