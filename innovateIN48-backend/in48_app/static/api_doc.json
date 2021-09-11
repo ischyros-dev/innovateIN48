@@ -15,18 +15,76 @@
     }
   ],
   "paths": {
-    "/login": {
+    "/create": {
       "post": {
         "tags": [
           "Service API"
         ],
-        "summary": "Establish session for required transaction",
+        "summary": "Creates new customer profile and account",
         "requestBody": {
-          "description": "User credentials for the required session",
+          "description": "Customer and account details to create.",
+          "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "userid": {
+                "cust_id": {
+                  "type": "string",
+                  "format": "string"
+                },
+                "password": {
+                  "type": "string",
+                  "format": "password"
+                },
+                "first_name": {
+                  "type": "string",
+                  "format": "string"
+                },
+                "last_name": {
+                  "type": "string",
+                  "format": "string"
+                },
+                "acct_no": {
+                  "type": "string",
+                  "format": "string"
+                },
+                "deposit_amt": {
+                  "type": "number"
+                }
+              },
+              "example": {
+                "cust_id": "1234567890",
+                "password": "a1b2c3",
+                "last_name": "Doe",
+                "first_name": "John",
+                "acct_no": "333322221111",
+                "deposit_amt": 20000
+              }
+            }
+          }
+        },
+        "responses":{
+          "201": {
+            "description": "Customer profile and account creation completed."
+          },
+          "400":{
+            "description": "Error on creation."
+          }
+        }
+      }
+    },
+    "/authsession": {
+      "post": {
+        "tags": [
+          "Service API"
+        ],
+        "summary": "Establishes session for required transaction.",
+        "requestBody": {
+          "description": "User credentials to establish session.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "cust_id": {
                   "type": "string",
                   "format": "string"
                 },
@@ -34,14 +92,17 @@
                   "type": "string",
                   "format": "password"
                 }
+              },
+              "example": {
+                "cust_id": "1234567890",
+                "password": "a1b2c3"
               }
             }
-          },
-          "required": true
+          }
         },
         "responses": {
           "200": {
-            "description": "Valid credentials. Use authentication key to execute transactions.",
+            "description": "Session established. Use token for transactions.",
             "content": {
               "application/json": {
                 "schema": {
@@ -51,26 +112,24 @@
                   }
                 },
                 "example": {
-                  "token": "api_key"
+                  "api_key": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoiMTIzNDU"
                 }
               }
             }
           },
           "403": {
-            "description": "Invalid credentials. No transactions allowed."
+            "description": "Invalid credentials provided."
           }
         }
-      }
-    },
-    "/logout": {
-      "post": {
+      },
+      "delete": {
         "tags": [
           "Service API"
         ],
-        "summary": "Terminates established session",
+        "summary": "Terminates established session.",
         "parameters": [
           {
-            "name": "userid",
+            "name": "cust_id",
             "in": "query",
             "required": true,
             "type": "string"
@@ -85,6 +144,284 @@
           }
         }
       }
+    },
+    "/enrol": {
+      "post": {
+        "tags": [
+          "Service API"
+        ],
+        "summary": "Adds new acount to existing customer profile.",
+        "parameters": [
+          {
+            "name": "api_key",
+            "in": "header",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "api_key",
+            "in": "header",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": {
+          "api_key": []
+        },
+        "requestBody": {
+          "description": "Details of new account for enrolment.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "cust_id": {
+                  "type": "string",
+                  "format": "string"
+                },
+                "acct_no": {
+                  "type": "string",
+                  "format": "string"
+                },
+                "deposit_amt": {
+                  "type": "number"
+                }
+              },
+              "example": {
+                "cust_id": "1234567890",
+                "acct_no": "111122223333",
+                "deposit_amt": 2000
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Account enrollment completed."
+          },
+          "400": {
+            "description": "Error on enrollment."
+          },
+          "401": {
+            "description": "Missing or expirted token."
+          },
+          "403": {
+            "description": "Invalid token."
+          }
+        }
+      }
+    },
+    "/inquire": {
+      "get": {
+        "tags": [
+          "Service API"
+        ],
+        "summary": "Determines account remaining balance.",
+        "parameters": [
+          {
+            "name": "acct_no",
+            "in": "query",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "api_key",
+            "in": "header",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": {
+          "api_key": []
+        },
+        "responses": {
+          "200": {
+            "description": "Account balance inquiry completed."
+          },
+          "400": {
+            "description": "Error on inquiry."
+          },
+          "401": {
+            "description": "Missing or expirted token."
+          },
+          "403": {
+            "description": "Invalid token."
+          }
+        }
+      }
+    },
+    "/withdraw": {
+      "post": {
+        "tags": [
+          "Service API"
+        ],
+        "summary": "Executes fund withdrawal transaction.",
+        "parameters": [
+          {
+            "name": "api_key",
+            "in": "header",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": {
+          "api_key": []
+        },
+        "requestBody": {
+          "description": "Account details and amount of funds to withdraw.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "acct_no": {
+                  "type": "string",
+                  "format": "string"
+                },
+                "amount": {
+                  "type": "number"
+                }
+              },
+              "example": {
+                "acct_no": "111122223333",
+                "amount": 2000
+              }
+            }
+          }
+        },
+        "responses":{
+          "201": {
+            "description": "Fund withdrawal completed."
+          },
+          "400":{
+            "description": "Error on withdrawal."
+          },
+          "401": {
+            "description": "Missing or expirted token."
+          },
+          "403": {
+            "description": "Invalid token."
+          }
+        }
+      }
+    },
+    "/deposit": {
+      "post": {
+        "tags": [
+          "Service API"
+        ],
+        "summary": "Executes fund deposit transaction.",
+        "parameters": [
+          {
+            "name": "api_key",
+            "in": "header",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": {
+          "api_key": []
+        },
+        "requestBody": {
+          "description": "Account details and amount of funds to deposit.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "acct_no": {
+                  "type": "string",
+                  "format": "string"
+                },
+                "amount": {
+                  "type": "number"
+                }
+              },
+              "example": {
+                "acct_no": "111122223333",
+                "amount": 2000
+              }
+            }
+          }
+        },
+        "responses":{
+          "201": {
+            "description": "Fund deposit completed."
+          },
+          "400":{
+            "description": "Error on deposit."
+          },
+          "401": {
+            "description": "Missing or expirted token."
+          },
+          "403": {
+            "description": "Invalid token."
+          }
+        }
+      }
+    },
+    "/transfer": {
+      "post": {
+        "tags": [
+          "Service API"
+        ],
+        "summary": "Executes fund transfer transaction. [Internal accounts only]",
+        "parameters": [
+          {
+            "name": "api_key",
+            "in": "header",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": {
+          "api_key": []
+        },
+        "requestBody": {
+          "description": "Source and destination account details and amount of funds to transfer.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "from_acct_no": {
+                  "type": "string",
+                  "format": "string"
+                },
+                "to_acct_no": {
+                  "type": "string",
+                  "format": "string"
+                },
+                "amount": {
+                  "type": "number"
+                }
+              },
+              "example": {
+                "from_acct_no": "111122223333",
+                "to_acct_no": "444455556666",
+                "amount": 2000
+              }
+            }
+          }
+        },
+        "responses":{
+          "201": {
+            "description": "Fund transfer completed."
+          },
+          "400":{
+            "description": "Error on transfer."
+          },
+          "401": {
+            "description": "Missing or expirted token."
+          },
+          "403": {
+            "description": "Invalid token."
+          }
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "api_key":{
+      "type": "apiKey",
+      "name": "api_key",
+      "in": "header"
     }
   }
 }

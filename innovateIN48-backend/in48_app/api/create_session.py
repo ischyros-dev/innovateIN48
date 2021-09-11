@@ -1,45 +1,35 @@
 from flask import Blueprint, request, jsonify, session
-from flask_cors.decorator import cross_origin
-from in48_app import mydb, in48_app
+from flask_cors import CORS
+from in48_app import in48_app
+from .models import Customer
 import jwt
 import datetime
 
-
 auth_session = Blueprint('auth_session', __name__)
+CORS(auth_session)
 
 
-@auth_session.route('/login', methods=['POST'])
-@cross_origin()
-def login():
-    username = request.json['userid']
-    password = request.json['password']
+@auth_session.route('/authsession', methods=['POST', 'DELETE'])
+def authsession():
+    if request.method == 'POST':
+        customer = Customer(cust_no=request.json['cust_id'])
+        if customer.pword == request.json['password']:
+            if customer.cust_no in session:
+                session.pop(customer.cust_no)
 
-    if username and password:
-        if username in session:
-            session.pop(username)
+            api_key = jwt.encode({'user': customer.cust_no,
+                                 'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=120)
+                                  },
+                                 in48_app.config['SECRET_KEY'], algorithm="HS256")
+            session[customer.cust_no] = api_key.decode('UTF-8')
+            return jsonify({'api_key': api_key.decode('UTF-8')}), 200
+        else:
+            return jsonify({'msg': 'Invalid Credentials!'}), 403
 
-        cur = mydb.connection.cursor()
-        cur.execute('SELECT Password FROM `Customer File` WHERE Username = %s', (username,))
-        userdetails = cur.fetchone()
-        cur.close()
+    if request.method == 'DELETE':
+        cust_id = request.args.get('cust_id')
+        if cust_id in session:
+            session.pop(cust_id)
+            return jsonify({'msg': "Session terminated."}), 200
 
-        if userdetails['Password'] == password:
-            token = jwt.encode({'user': username,
-                                'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=60)
-                                },
-                               in48_app.config['SECRET_KEY'])
-            session[username] = token
-
-            return jsonify({'token': token}), 200
-    else:
-        return jsonify({'message': 'Invalid Credentials!'}), 403
-
-
-@auth_session.route('/logout', methods=['POST'])
-def logout():
-    username = request.args.get('userid')
-    if username in session:
-        session.pop(username)
-        return jsonify({'message': "Successfully logged out."}), 200
-
-    return jsonify({'message': "No active session!"}), 401
+        return jsonify({'msg': "No active session!"}), 401

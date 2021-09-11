@@ -10,6 +10,6 @@ Jinja2==3.0.1
 MarkupSafe==2.0.1
 mysqlclient==2.0.3
 pycparser==2.20
-PyJWT==2.1.0
+PyJWT==1.7.1
 six==1.16.0
 Werkzeug==2.0.1
