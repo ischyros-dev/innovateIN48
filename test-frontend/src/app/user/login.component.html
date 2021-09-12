@@ -5,11 +5,11 @@
     </div>
     <hr>
     <!-- This div is still under work. -->
-    <div *ngIf="user$ | async as user; else loading;" class="form-group">
+    <div class="form-group">
       <label for="userName">Username:</label>
       <em *ngIf="loginForm.controls.userName?.invalid && 
       (loginForm.controls.userName?.touched)">Field required</em>
-      <input [(ngModel)]="userName" name="userName" required id="userName" value="{{ message$ | async }}" type="text" class="form-control" placeholder="Username..." />
+      <input [(ngModel)]="userName" name="userName" required id="userName" value="userName" type="text" class="form-control" placeholder="Username..." />
     </div>
     <div class="form-group" >
       <label for="password">Password:</label>
@@ -26,4 +26,6 @@
   <br>
   <!-- <div *ngIf="loginInvalid" class="alert alert-danger">Invalid Login Info</div> -->
 </div>
-<ng-template #loading>Loading data...</ng-template>
+<!-- <ng-template #loading>Loading data...</ng-template> -->
+
+<!-- *ngIf="user$ | async as user; else loading;" -->
