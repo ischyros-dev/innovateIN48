@@ -63,7 +63,7 @@ class Customer:
             try:
                 cur.execute(f"SELECT Password, LastName, FirstName "
                             f"FROM `{self.table_name}` "
-                            f"WHERE Username={self.cust_no}")
+                            f"WHERE Username='{self.cust_no}'")
                 result = cur.fetchone()
                 print(result)
                 self.pword = result['Password']
