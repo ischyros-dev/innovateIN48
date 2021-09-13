@@ -9,7 +9,6 @@ class Account:
         self.cust_no = ''
         self.balance = 0
         if acct_no:
-            self.acct_no = acct_no
             try:
                 cur = app_db.connection.cursor()
                 cur.execute(f"SELECT CustomerNumber, Balance "
@@ -25,7 +24,7 @@ class Account:
     def add(self):
         try:
             cur = app_db.connection.cursor()
-            assert self.cust_no and self.acct_no, "Missing information."
+            assert self.cust_no and self.acct_no, "Missing account information."
             cur.execute(f"INSERT INTO `{self.table_name}` (CustomerNumber, AccountNumber, Balance) "
                         f"VALUES('{self.cust_no}', '{self.acct_no}', {self.balance})")
             app_db.connection.commit()
@@ -60,7 +59,6 @@ class Customer:
         self.lname = ''
         self.fname = ''
         if cust_no:
-            self.cust_no = cust_no
             try:
                 cur = app_db.connection.cursor()
                 cur.execute(f"SELECT Password, LastName, FirstName "
@@ -78,7 +76,7 @@ class Customer:
     def add(self):
         try:
             cur = app_db.connection.cursor()
-            assert self.cust_no and self.pword and self.lname and self.fname, "Missing information."
+            assert self.cust_no and self.pword and self.lname and self.fname, "Missing customer profile information."
             cur.execute(f"INSERT INTO `{self.table_name}` (Username, Password, LastName, FirstName) "
                         f"VALUES('{self.cust_no}', '{self.pword}', '{self.lname}', '{self.fname}')")
             app_db.connection.commit()
@@ -131,6 +129,7 @@ class Transaction:
         try:
             cur = app_db.connection.cursor()
             tran_id = self.get_curr_index() + 1
+            assert self.cust_no and self.acct_no and self.date_time and self.tran_type, "Missing transaction detail."
             cur.execute(f"INSERT INTO `{self.table_name}` "
                         f"(CustomerNumber, AccountNumber, Tran_ID, Tran_DateTime, Tran_Type, Tran_Amount) "
                         f"VALUES('{self.cust_no}', '{self.acct_no}', CONCAT('TXN', LPAD({tran_id}, 10, 0)), "
