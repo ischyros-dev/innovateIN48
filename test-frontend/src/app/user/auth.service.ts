@@ -12,10 +12,10 @@ export class AuthService {
 
     currentUser: AppUser
     loginUser(userName: string, password: string) {
-        let loginInfo = { userid: userName, password: password }
+        let loginInfo = { cust_id: userName, password: password }
         let options = { headers: new HttpHeaders({ 'Content-Type': 'application/json' })}
 
-        return this.http.post(`${API_URL}/login`, loginInfo, options)
+        return this.http.post(`${API_URL}/authsession`, loginInfo, options)
             .pipe(tap(data => {
                 this.currentUser = <AppUser>data['user']
             }))
