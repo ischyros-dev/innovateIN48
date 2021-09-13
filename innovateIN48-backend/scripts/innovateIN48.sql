@@ -4,7 +4,7 @@ USE innovateIN48;
 
 CREATE TABLE `Customer File`(
     CustomerFile_ID INT NOT NULL AUTO_INCREMENT,
-    Username VARCHAR(10) NOT NULL,
+    Username VARCHAR(10) NOT NULL UNIQUE,
     Password VARCHAR(255) NOT NULL,
     LastName VARCHAR(50) NOT NULL,
     FirstName VARCHAR(50) NOT NULL,
@@ -21,7 +21,7 @@ insert into `customer file` values(4, 'john', 'password1', 'John', 'Smith');
 CREATE TABLE `Accounts Master File`(
     AccountsMasterFile_ID INT NOT NULL AUTO_INCREMENT,
     CustomerNumber VARCHAR(10) NOT NULL,
-    AccountNumber VARCHAR(12) NOT NULL,
+    AccountNumber VARCHAR(12) NOT NULL UNIQUE,
     Balance DECIMAL(12, 2) NOT NULL,
     PRIMARY KEY(AccountsMasterFile_ID)
 );

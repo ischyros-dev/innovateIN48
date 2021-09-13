@@ -6,7 +6,7 @@ import jwt
 
 def authenticate_user(func):
     @wraps(func)
-    def verify_user(*args, **kwargs):
+    def verify_user():
         api_key = request.headers.get('api_key')
 
         if not api_key:
@@ -21,6 +21,5 @@ def authenticate_user(func):
         except:
             return jsonify({'message': 'Invalid token!'}), 403
 
-        return func()
-
+        return func(data['user'])
     return verify_user

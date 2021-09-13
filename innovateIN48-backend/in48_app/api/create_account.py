@@ -26,3 +26,5 @@ def create():
         return jsonify({'msg': "Customer profile and account creation completed."}), 201
     except app_db.connection.Error as db_err:
         return jsonify({'msg': str(db_err)}), 400
+    except AssertionError as ass_err:
+        return jsonify({'msg': str(ass_err)}), 400
