@@ -1,0 +1,33 @@
+<div *ngIf="!(micAccess$ | async)" class="alert alert-danger">Microphone access required!</div>
+<div class="container">
+  <form #newDepositForm="ngForm" (ngSubmit)="deposit(newDepositForm.value)" autocomplete="off">
+    <div class="form-group">
+          <h1>Deposit</h1>
+    </div>
+    <hr>
+    <div class="form-group" [ngClass]="{'error': newDepositForm.controls.userName?.invalid}">
+      <label for="userName">Cust ID/ Username:</label>
+      <em *ngIf="newDepositForm.controls.userName?.invalid && (newDepositForm.controls.userName?.touched)">For verification purposes.</em>
+      <input onmousedown="inputValue1()" [(ngModel)]="userName" name="userName" required id="userName" value="{{ this.message$ | async }}" type="text" class="form-control" placeholder="Cust No..." />
+    </div>
+    <div class="form-group" [ngClass]="{'error': newDepositForm.controls.accountNumber?.invalid}">
+      <label for="accountNumber">Account Number:</label>
+      <em *ngIf="newDepositForm.controls.accountNumber?.invalid && (newDepositForm.controls.accountNumber?.touched)">Field required</em>
+      <input (onmousedown)="inputValue2()" (ngModel)="depositTrans.accountNumber" name="accountNumber" required id="accountNumber" value="{{ this.message2$ | async }}" type="number" class="form-control" placeholder="Account Number..." />
+    </div>
+    <div class="form-group" [ngClass]="{'error': newDepositForm.controls.amount?.invalid}">
+      <label for="amount">Amount:</label>
+      <em *ngIf="newDepositForm.controls.amount?.invalid && (newDepositForm.controls.amount?.touched)">Field required</em>
+      <input (onmousedown)="inputValue3()" (ngModel)="depositTrans.amount" name="amount" required id="amount" value="{{ this.message3$ | async }}" type="number" class="form-control" placeholder="Amount..." />
+    </div>
+    <button type="submit" [disabled]="newDepositForm.invalid" class="btn btn-primary">Submit</button>
+    <button type="button" class="btn btn-default" (click)="cancel()">Cancel</button>
+    <!-- <div>
+      <button class="bi mic-fill" title="Stop Speaking" *ngIf="this.isListen === 'Y'" (click)="setListen('N')"></button>
+      <button class="bi mic-mute-fill" title="Start Speaking" *ngIf="this.isListen === 'N'" (click)="setListen('Y')"></button>
+    </div> -->
+  </form>  
+</div>
+
+
+  <!-- [disabled]="newDepositForm.invalid" -->

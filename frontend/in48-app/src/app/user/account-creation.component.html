@@ -1,0 +1,36 @@
+<div class="container">
+  <form #newAccountForm="ngForm" (ngSubmit)="createAccount(newAccountForm.value)" autocomplete="off" novalidate>
+    <div class="form-group">
+        <h1>Create Account</h1>
+      </div>
+      <hr>
+    <div class="form-group" [ngClass]="{'error': newAccountForm.controls.userName?.invalid && newAccountForm.controls.userName?.touched}">
+      <label for="userName">Username:</label>
+      <em *ngIf="newAccountForm.controls.userName?.invalid && (newAccountForm.controls.userName?.touched)">Field required</em>
+      <input (ngModel)="newUser.userName" name="userName" required id="userName" type="text" class="form-control" placeholder="Username..." />
+    </div>
+    <div class="form-group" [ngClass]="{'error': newAccountForm.controls.password?.invalid && newAccountForm.controls.password?.touched}">
+        <label for="password">Password:</label>
+        <em *ngIf="newAccountForm.controls.password?.invalid && (newAccountForm.controls.password?.touched)">Field required</em>
+        <input (ngModel)="newUser.password" name="password" required id="password" type="password" class="form-control" placeholder="Password..." />
+    </div>
+    <div class="form-group" [ngClass]="{'error': newAccountForm.controls.accountNumber?.invalid && newAccountForm.controls.accountNumber?.autocomplete}">
+      <label for="accountNumber">Account Number:</label>
+      <em *ngIf="newAccountForm.controls.password?.invalid && (newAccountForm.controls.password?.touched)">Field required</em>
+      <input (ngModel)="newUser.accountNumber" name="accountNumber" required id="accountNumber" type="number" class="form-control" placeholder="Account Number..." />
+  </div>
+    <div class="form-group" [ngClass]="{'error': newAccountForm.controls.firstName?.invalid && newAccountForm.controls.firstName?.touched}">
+        <label for="firstName">First Name:</label>
+        <em *ngIf="newAccountForm.controls.firstName?.invalid && (newAccountForm.controls.firstName?.touched)">Field required</em>
+        <input (ngModel)="newUser.firstName" name="firstName" required id="firstName" type="text" class="form-control" placeholder="First Name..." />
+    </div>
+    <div class="form-group" [ngClass]="{'error': newAccountForm.controls.lastName?.invalid && newAccountForm.controls.lastName?.touched}">
+        <label for="lastName">Last Name:</label>
+        <em *ngIf="newAccountForm.controls.lastName?.invalid && (newAccountForm.controls.lastName?.touched)">Field required</em>
+        <input (ngModel)="newUser.lastName" name="lastName" required id="lastName" type="text" class="form-control" placeholder="Last Name..." />
+    </div>
+
+    <button type="submit" [disabled]="newAccountForm.invalid" class="btn btn-primary">Submit</button>
+    <button type="button" class="btn btn-default" (click)="cancel()">Cancel</button>
+  </form>
+</div>

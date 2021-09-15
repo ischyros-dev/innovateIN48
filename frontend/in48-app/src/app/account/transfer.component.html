@@ -1,0 +1,20 @@
+<div class="container">
+    <form #newTransferForm="ngForm" (ngSubmit)="transfer(newTransferForm.value)" autocomplete="off">
+      <div class="form-group">
+          <h1>Transfer Money</h1>
+      </div>
+        <hr>
+      <div class="form-group" [ngClass]="{'error': newTransferForm.controls.accountNumber?.invalid}">
+        <label for="accountNumber">Account Number:</label>
+        <em *ngIf="newTransferForm.controls.accountNumber?.invalid && (newTransferForm.controls.accountNumber?.touched)">Field required</em>
+        <input (ngModel)="transferTrans.accountNumber" name="accountNumber" required id="accountNumber" type="number" class="form-control" placeholder="Account Number..." />
+      </div>
+      <div class="form-group" [ngClass]="{'error': newTransferForm.controls.amount?.invalid}">
+        <label for="amount">Amount:</label>
+        <em *ngIf="newTransferForm.controls.amount?.invalid && (newTransferForm.controls.number?.touched)">Field required</em>
+        <input (ngModel)="transferTrans.amount" name="amount" required id="amount" type="number" class="form-control" placeholder="Amount..." />
+      </div>
+      <button type="submit" [disabled]="newTransferForm.invalid" class="btn btn-primary">Submit</button>
+      <button type="button" class="btn btn-default" (click)="cancel()">Cancel</button>
+    </form>
+  </div>
